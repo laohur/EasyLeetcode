@@ -735,3 +735,43 @@ public:
         return longest;
     }
 };
+
+10.Count of Smaller Numbers After Self
+
+You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
+
+Example:
+
+Input: [5,2,6,1]
+Output: [2,1,1,0] 
+Explanation:
+To the right of 5 there are 2 smaller elements (2 and 1).
+To the right of 2 there is only 1 smaller element (1).
+To the right of 6 there is 1 smaller element (1).
+To the right of 1 there is 0 smaller element.
+
+from typing import List
+
+
+import bisect
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        n=len(nums)
+        if n==0:
+            return []
+        re=[0]*n
+        end=n-1
+        seq=[nums[-1]]
+        for i in range(n-2,-1,-1):
+            s= bisect.bisect_left(seq,nums[i])
+            seq.insert(s,nums[i])
+            re[i]=s
+        return re
+
+if __name__ == '__main__':
+    # input=[2,1,5,6,2,3]
+    input=[1,1]
+    input= [5,2,6,1]
+    sln=Solution()
+    d=sln.countSmaller(input)
+    print(d)
